@@ -1,0 +1,32 @@
+services:
+  web:
+    build: .
+    image: brightloop:latest
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY:-}          # empty -> generated once and kept in the data volume
+      SEED_DEMO: ${SEED_DEMO:-1}           # set 0 for a clean production database
+      MAIL_MODE: ${MAIL_MODE:-console}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:8000}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+    volumes:
+      - brightloop-data:/app/data
+    restart: unless-stopped
+
+  # Daily billing job: `docker compose --profile jobs run --rm billing`  (schedule it with cron)
+  billing:
+    image: brightloop:latest
+    profiles: ["jobs"]
+    command: ["python", "run.py", "billing"]
+    environment:
+      SECRET_KEY: ${SECRET_KEY:-}
+      SEED_DEMO: "0"
+    volumes:
+      - brightloop-data:/app/data
+
+volumes:
+  brightloop-data:

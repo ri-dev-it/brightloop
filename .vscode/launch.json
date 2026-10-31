@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    { "name": "Brightloop: run server (debug)", "type": "debugpy", "request": "launch", "program": "${workspaceFolder}/run.py",
+      "env": { "DEBUG": "0", "PORT": "5000" }, "console": "integratedTerminal", "justMyCode": true },
+    { "name": "Brightloop: billing job", "type": "debugpy", "request": "launch", "program": "${workspaceFolder}/run.py",
+      "args": ["billing"], "console": "integratedTerminal" },
+    { "name": "Brightloop: unit tests", "type": "debugpy", "request": "launch", "module": "unittest",
+      "args": ["discover", "-s", "tests", "-v"], "console": "integratedTerminal" }
+  ]
+}

@@ -1,0 +1,10 @@
+data/*.db
+data/*.db-*
+data/outbox.log
+__pycache__/
+*.pyc
+.venv/
+.env
+data/.secret_key
+tests/e2e/out/
+venv/

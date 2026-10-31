@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "Setup (venv + install)", "type": "shell", "command": "python -m venv .venv && .venv/bin/pip install -r requirements.txt",
+      "windows": { "command": "python -m venv .venv; .venv\\Scripts\\pip install -r requirements.txt" }, "problemMatcher": [] },
+    { "label": "Run server", "type": "shell", "command": ".venv/bin/python run.py", "windows": { "command": ".venv\\Scripts\\python run.py" },
+      "isBackground": true, "problemMatcher": [] },
+    { "label": "Run tests", "type": "shell", "command": ".venv/bin/python -m unittest discover -s tests -v",
+      "windows": { "command": ".venv\\Scripts\\python -m unittest discover -s tests -v" }, "group": { "kind": "test", "isDefault": true }, "problemMatcher": [] },
+    { "label": "Run billing job", "type": "shell", "command": ".venv/bin/python run.py billing", "windows": { "command": ".venv\\Scripts\\python run.py billing" }, "problemMatcher": [] },
+    { "label": "Docker: up", "type": "shell", "command": "docker compose up --build -d", "problemMatcher": [] },
+    { "label": "Docker: down", "type": "shell", "command": "docker compose down", "problemMatcher": [] }
+  ]
+}
